@@ -27,14 +27,15 @@ def create_missing_values_bar(df):
 
     return missing_fig
 
-def find_cat_cont_columns(df): ## Logic to Separate Continuous & Categorical Columns
-    cont_columns, cat_columns = [],[]
+def find_cat_cont_columns(df):
+    cont_columns, cat_columns = [], []
     for col in df.columns:        
-        if len(df[col].unique()) <= 25 or df[col].dtype == np.object_: ## If less than 25 unique values
+        if len(df[col].unique()) <= 25 or pd.api.types.is_object_dtype(df[col]):
             cat_columns.append(col.strip())
         else:
             cont_columns.append(col.strip())
     return cont_columns, cat_columns
+
 
 ### Web App / Dashboard Code
 st.set_page_config(page_icon=":bar_chart:", page_title="EDA Automated using Python")
